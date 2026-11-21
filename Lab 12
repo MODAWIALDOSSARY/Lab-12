@@ -1,0 +1,31 @@
+door('Makkah', 'Madinah').
+door('Madinah', 'Makkah').
+
+door('Madinah', 'Taif').
+door('Madinah', 'Tabuk').
+door('Tabuk', 'Madinah').
+
+door('Makkah', 'Riyadh').
+door('Riyadh', 'Makkah').
+
+door('Taif', 'Dammam').
+door('Tabuk', 'Taif').
+door('Taif', 'Tabuk').
+
+door('Dammam', 'Al-Qatif').
+door('Al-Qatif', 'Dammam').
+door('Al-Qatif', 'Madinah').
+
+door('Dammam', 'Riyadh').
+door('Riyadh', 'Dammam').
+
+travel(From, To, Path) :-
+    travel(From, To, [From], ReversedPath),
+    reverse(ReversedPath, Path).
+
+travel(X, X, Path, Path).
+
+travel(X, Y, Visited, Path) :-
+    door(X, Z),
+    \+ member(Z, Visited),
+    travel(Z, Y, [Z|Visited], Path).
